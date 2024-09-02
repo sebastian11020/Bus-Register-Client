@@ -1,76 +1,80 @@
-const fetch = require('node-fetch');
-
-const baseUrl = 'http://localhost:3000';
-
-// Función para obtener un elemento por ID
-async function getItemById(id) {
-  try {
-    const response = await fetch(`${baseUrl}/get/${id}`);
-    if (response.ok) {
-      const data = await response.json();
-      console.log('Elemento obtenido:', data);
-    } else {
-      console.log('Error al obtener el elemento:', response.statusText);
+document.addEventListener('DOMContentLoaded', function () {
+    const baseUrl = 'http://localhost:3000';
+    const resultDiv = document.getElementById('result');
+  
+    function showResult(message) {
+      resultDiv.textContent = message;
     }
-  } catch (error) {
-    console.error('Error:', error.message);
-  }
-}
-
-// Función para guardar un nuevo elemento
-async function saveItem(item) {
-  try {
-    const response = await fetch(`${baseUrl}/save`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(item)
+  
+    async function saveOrUpdateBus(plate, arrivalTime) {
+      try {
+        const response = await fetch(`${baseUrl}/save`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: plate, arrivalTime })
+        });
+  
+        if (response.ok) {
+          const data = await response.text();
+          showResult(data);
+        } else {
+          showResult(`Error: ${response.statusText}`);
+        }
+      } catch (error) {
+        showResult(`Error: ${error.message}`);
+      }
+    }
+  
+    async function searchBus(plate) {
+      try {
+        const response = await fetch(`${baseUrl}/get/${plate}`);
+        if (response.ok) {
+          const data = await response.json();
+          showResult(`Bus encontrado: ${JSON.stringify(data)}`);
+        } else {
+          showResult(`Error: ${response.statusText}`);
+        }
+      } catch (error) {
+        showResult(`Error: ${error.message}`);
+      }
+    }
+  
+    async function deleteBus(plate) {
+      try {
+        const response = await fetch(`${baseUrl}/delete/${plate}`, {
+          method: 'DELETE'
+        });
+  
+        if (response.ok) {
+          const data = await response.json();
+          showResult(data.message);
+        } else {
+          showResult(`Error: ${response.statusText}`);
+        }
+      } catch (error) {
+        showResult(`Error: ${error.message}`);
+      }
+    }
+  
+    const registerForm = document.getElementById('registerForm');
+    registerForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const plate = document.getElementById('plate').value;
+      const arrivalTime = document.getElementById('arrivalTime').value;
+      saveOrUpdateBus(plate, arrivalTime);
+    });
+  
+    const searchForm = document.getElementById('searchForm');
+    searchForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const plate = document.getElementById('searchPlate').value;
+      searchBus(plate);
     });
 
-    if (response.ok) {
-      const data = await response.text();
-      console.log(data);
-    } else {
-      console.log('Error al guardar el elemento:', response.statusText);
-    }
-  } catch (error) {
-    console.error('Error:', error.message);
-  }
-}
-
-// Función para actualizar un elemento por ID
-async function updateItem(id, updates) {
-  try {
-    const response = await fetch(`${baseUrl}/update/${id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updates)
+    const deleteForm = document.getElementById('deleteForm');
+    deleteForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const plate = document.getElementById('deletePlate').value;
+      deleteBus(plate);
     });
-
-    if (response.ok) {
-      const data = await response.json();
-      console.log('Elemento actualizado:', data);
-    } else {
-      console.log('Error al actualizar el elemento:', response.statusText);
-    }
-  } catch (error) {
-    console.error('Error:', error.message);
-  }
-}
-
-// Función para eliminar un elemento por ID
-async function deleteItem(id) {
-  try {
-    const response = await fetch(`${baseUrl}/delete/${id}`, {
-      method: 'DELETE'
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      console.log(data.message);
-    } else {
-      console.log('Error al eliminar el elemento:', response.statusText);
-    }
-  } catch (error) {
-    console.error('Error:', error.message);
-  }
-}
+  });
