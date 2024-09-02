@@ -2,12 +2,10 @@ document.addEventListener('DOMContentLoaded', function () {
   const baseUrl = 'http://localhost:3000';
   const resultDiv = document.getElementById('result');
 
-  // Función para mostrar resultados
   function showResult(message) {
     resultDiv.textContent = message;
   }
-
-  // Función para mostrar alertas
+s
   function showAlert(message, isError = false) {
     if (isError) {
       alert(`Error: ${message}`);
@@ -16,8 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // Función para guardar o actualizar un bus
-  async function saveOrUpdateBus(plate, arrivalTime) {
+  async function saveBus(plate, arrivalTime) {
     try {
       const response = await fetch(`${baseUrl}/save`, {
         method: 'POST',
@@ -39,7 +36,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // Función para buscar un bus
   async function searchBus(plate) {
     try {
       const response = await fetch(`${baseUrl}/get/${plate}`);
@@ -56,8 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
       showAlert(`Error al buscar el bus: ${error.message}`, true);
     }
   }
-
-  // Función para eliminar un bus
+  
   async function deleteBus(plate) {
     try {
       const response = await fetch(`${baseUrl}/delete/${plate}`, {
@@ -78,16 +73,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // Manejo del formulario de registro/actualización
   const registerForm = document.getElementById('registerForm');
   registerForm.addEventListener('submit', function (event) {
     event.preventDefault();
     const plate = document.getElementById('plate').value;
     const arrivalTime = document.getElementById('arrivalTime').value;
-    saveOrUpdateBus(plate, arrivalTime);
+    saveBus(plate, arrivalTime);
   });
 
-  // Manejo del formulario de búsqueda
   const searchForm = document.getElementById('searchForm');
   searchForm.addEventListener('submit', function (event) {
     event.preventDefault();
@@ -95,7 +88,6 @@ document.addEventListener('DOMContentLoaded', function () {
     searchBus(plate);
   });
 
-  // Manejo del formulario de eliminación
   const deleteForm = document.getElementById('deleteForm');
   deleteForm.addEventListener('submit', function (event) {
     event.preventDefault();
