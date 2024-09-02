@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Buses Transmilenio</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Enlace al archivo CSS -->
+    <script src="scripts.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Registro de Buses Transmilenio</h1>
+
+        <form id="registerForm" class="form">
+            <h2>Registrar/Actualizar Bus</h2>
+            <label for="plate">Placa del Bus:</label>
+            <input type="text" id="plate" name="plate" required>
+            <label for="arrivalTime">Hora de Llegada:</label>
+            <input type="datetime-local" id="arrivalTime" name="arrivalTime" required>
+            <button type="submit" class="button">Registrar/Actualizar</button>
+        </form>
+
+        <form id="deleteForm" class="form">
+            <h2>Eliminar Bus</h2>
+            <label for="deletePlate">Eliminar Bus con Placa:</label>
+            <input type="text" id="deletePlate" name="deletePlate" required>
+            <button type="submit" class="button delete">Eliminar</button>
+        </form>
+
+        <form id="searchForm" class="form">
+            <h2>Buscar Bus</h2>
+            <label for="searchPlate">Buscar Bus con Placa:</label>
+            <input type="text" id="searchPlate" name="searchPlate" required>
+            <button type="submit" class="button search">Buscar</button>
+        </form>
+
+        <div id="result" class="result"></div>
+    </div>
+</body>
+</html>
