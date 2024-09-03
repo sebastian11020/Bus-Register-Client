@@ -10,15 +10,27 @@
     <div class="container">
         <h1>Registro de Buses Transmilenio</h1>
 
+        <!-- Formulario para Registrar Bus -->
         <form id="registerForm" class="form">
-            <h2>Registrar/Actualizar Bus</h2>
+            <h2>Registrar Bus</h2>
             <label for="plate">Placa del Bus:</label>
             <input type="text" id="plate" name="plate" required>
             <label for="arrivalTime">Hora de Llegada:</label>
             <input type="datetime-local" id="arrivalTime" name="arrivalTime" required>
-            <button type="submit" class="button">Registrar/Actualizar</button>
+            <button type="submit" class="button">Registrar</button>
         </form>
 
+        <!-- Formulario para Actualizar Bus -->
+        <form id="updateForm" class="form">
+            <h2>Actualizar Bus</h2>
+            <label for="updatePlate">Placa del Bus a Actualizar:</label>
+            <input type="text" id="updatePlate" name="updatePlate" required>
+            <label for="updateTime">Nueva Hora de Llegada:</label>
+            <input type="datetime-local" id="updateTime" name="updateTime" required>
+            <button type="submit" class="button update">Actualizar</button>
+        </form>
+
+        <!-- Formulario para Eliminar Bus -->
         <form id="deleteForm" class="form">
             <h2>Eliminar Bus</h2>
             <label for="deletePlate">Eliminar Bus con Placa:</label>
@@ -26,6 +38,7 @@
             <button type="submit" class="button delete">Eliminar</button>
         </form>
 
+        <!-- Formulario para Buscar Bus -->
         <form id="searchForm" class="form">
             <h2>Buscar Bus</h2>
             <label for="searchPlate">Buscar Bus con Placa:</label>
@@ -33,6 +46,7 @@
             <button type="submit" class="button search">Buscar</button>
         </form>
 
+        <!-- Div para mostrar resultados -->
         <div id="result" class="result"></div>
     </div>
 </body>

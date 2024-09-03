@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function showResult(message) {
     resultDiv.textContent = message;
   }
-s
+  
   function showAlert(message, isError = false) {
     if (isError) {
       alert(`Error: ${message}`);
@@ -25,14 +25,38 @@ s
       if (response.ok) {
         const data = await response.text();
         showResult(data);
-        showAlert('Bus registrado/actualizado correctamente.');
+        showAlert('Bus registrado correctamente.');
       } else {
-        showResult(`Error: ${response.statusText}`);
-        showAlert(`Error al registrar/actualizar el bus: ${response.statusText}`, true);
+        const errorText = await response.text();
+        showResult(`Error: ${errorText}`);
+        showAlert(`Error al registrar el bus: ${errorText}`, true);
       }
     } catch (error) {
       showResult(`Error: ${error.message}`);
-      showAlert(`Error al registrar/actualizar el bus: ${error.message}`, true);
+      showAlert(`Error al registrar el bus: ${error.message}`, true);
+    }
+  }
+
+  async function updateBus(plate, newTime) {
+    try {
+      const response = await fetch(`${baseUrl}/update/${plate}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ arrivalTime: newTime })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        showResult(`Bus actualizado: ${JSON.stringify(data)}`);
+        showAlert('Bus actualizado correctamente.');
+      } else {
+        const errorText = await response.text();
+        showResult(`Error: ${errorText}`);
+        showAlert(`Error al actualizar el bus: ${errorText}`, true);
+      }
+    } catch (error) {
+      showResult(`Error: ${error.message}`);
+      showAlert(`Error al actualizar el bus: ${error.message}`, true);
     }
   }
 
@@ -44,8 +68,9 @@ s
         showResult(`Bus encontrado: ${JSON.stringify(data)}`);
         showAlert('Bus encontrado.');
       } else {
-        showResult(`Error: ${response.statusText}`);
-        showAlert(`Error al buscar el bus: ${response.statusText}`, true);
+        const errorText = await response.text();
+        showResult(`Error: ${errorText}`);
+        showAlert(`Error al buscar el bus: ${errorText}`, true);
       }
     } catch (error) {
       showResult(`Error: ${error.message}`);
@@ -64,8 +89,9 @@ s
         showResult(data.message);
         showAlert('Bus eliminado correctamente.');
       } else {
-        showResult(`Error: ${response.statusText}`);
-        showAlert(`Error al eliminar el bus: ${response.statusText}`, true);
+        const errorText = await response.text();
+        showResult(`Error: ${errorText}`);
+        showAlert(`Error al eliminar el bus: ${errorText}`, true);
       }
     } catch (error) {
       showResult(`Error: ${error.message}`);
@@ -79,6 +105,14 @@ s
     const plate = document.getElementById('plate').value;
     const arrivalTime = document.getElementById('arrivalTime').value;
     saveBus(plate, arrivalTime);
+  });
+
+  const updateForm = document.getElementById('updateForm');
+  updateForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    const plate = document.getElementById('updatePlate').value;
+    const newTime = document.getElementById('updateTime').value;
+    updateBus(plate, newTime);
   });
 
   const searchForm = document.getElementById('searchForm');
