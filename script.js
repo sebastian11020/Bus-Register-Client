@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function showResult(message) {
     resultDiv.textContent = message;
   }
-s
+
   function showAlert(message, isError = false) {
     if (isError) {
       alert(`Error: ${message}`);
