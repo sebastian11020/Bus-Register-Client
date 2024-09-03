@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Registro de Buses Transmilenio</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Enlace al archivo CSS -->
+    <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
 </head>
 <body>
@@ -11,12 +11,21 @@
         <h1>Registro de Buses Transmilenio</h1>
 
         <form id="registerForm" class="form">
-            <h2>Registrar/Actualizar Bus</h2>
+            <h2>Registrar Bus</h2>
             <label for="plate">Placa del Bus:</label>
             <input type="text" id="plate" name="plate" required>
             <label for="arrivalTime">Hora de Llegada:</label>
             <input type="datetime-local" id="arrivalTime" name="arrivalTime" required>
-            <button type="submit" class="button">Registrar/Actualizar</button>
+            <button type="submit" class="button">Registrar</button>
+        </form>
+
+        <form id="updateForm" class="form">
+            <h2>Actualizar Bus</h2>
+            <label for="updatePlate">Placa del Bus:</label>
+            <input type="text" id="updatePlate" name="updatePlate" required>
+            <label for="newArrivalTime">Nueva Hora de Llegada:</label>
+            <input type="datetime-local" id="newArrivalTime" name="newArrivalTime" required>
+            <button type="submit" class="button update">Actualizar</button>
         </form>
 
         <form id="deleteForm" class="form">

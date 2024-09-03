@@ -25,14 +25,36 @@ document.addEventListener('DOMContentLoaded', function () {
       if (response.ok) {
         const data = await response.text();
         showResult(data);
-        showAlert('Bus registrado/actualizado correctamente.');
+        showAlert('Bus registrado correctamente.');
       } else {
         showResult(`Error: ${response.statusText}`);
-        showAlert(`Error al registrar/actualizar el bus: ${response.statusText}`, true);
+        showAlert(`Error al registrar el bus: ${response.statusText}`, true);
       }
     } catch (error) {
       showResult(`Error: ${error.message}`);
-      showAlert(`Error al registrar/actualizar el bus: ${error.message}`, true);
+      showAlert(`Error al registrar el bus: ${error.message}`, true);
+    }
+  }
+
+  async function updateBus(plate, newArrivalTime) {
+    try {
+      const response = await fetch(`${baseUrl}/update/${plate}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ arrivalTime: newArrivalTime })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        showResult(`Bus actualizado: ${JSON.stringify(data)}`);
+        showAlert('Bus actualizado correctamente.');
+      } else {
+        showResult(`Error: ${response.statusText}`);
+        showAlert(`Error al actualizar el bus: ${response.statusText}`, true);
+      }
+    } catch (error) {
+      showResult(`Error: ${error.message}`);
+      showAlert(`Error al actualizar el bus: ${error.message}`, true);
     }
   }
 
@@ -52,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
       showAlert(`Error al buscar el bus: ${error.message}`, true);
     }
   }
-  
+
   async function deleteBus(plate) {
     try {
       const response = await fetch(`${baseUrl}/delete/${plate}`, {
@@ -79,6 +101,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const plate = document.getElementById('plate').value;
     const arrivalTime = document.getElementById('arrivalTime').value;
     saveBus(plate, arrivalTime);
+  });
+
+  const updateForm = document.getElementById('updateForm');
+  updateForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    const plate = document.getElementById('updatePlate').value;
+    const newArrivalTime = document.getElementById('newArrivalTime').value;
+    updateBus(plate, newArrivalTime);
   });
 
   const searchForm = document.getElementById('searchForm');
