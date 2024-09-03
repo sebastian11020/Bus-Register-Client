@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Registro de Buses Transmilenio</title>
-    <link rel="stylesheet" href="styles.css"> 
+    <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
 </head>
 <body>
@@ -23,19 +23,11 @@
         <!-- Formulario para Actualizar Bus -->
         <form id="updateForm" class="form">
             <h2>Actualizar Bus</h2>
-            <label for="updatePlate">Placa del Bus a Actualizar:</label>
+            <label for="updatePlate">Placa del Bus:</label>
             <input type="text" id="updatePlate" name="updatePlate" required>
-            <label for="updateTime">Nueva Hora de Llegada:</label>
-            <input type="datetime-local" id="updateTime" name="updateTime" required>
+            <label for="newArrivalTime">Nueva Hora de Llegada:</label>
+            <input type="datetime-local" id="newArrivalTime" name="newArrivalTime" required>
             <button type="submit" class="button update">Actualizar</button>
-        </form>
-
-        <!-- Formulario para Eliminar Bus -->
-        <form id="deleteForm" class="form">
-            <h2>Eliminar Bus</h2>
-            <label for="deletePlate">Eliminar Bus con Placa:</label>
-            <input type="text" id="deletePlate" name="deletePlate" required>
-            <button type="submit" class="button delete">Eliminar</button>
         </form>
 
         <!-- Formulario para Buscar Bus -->
@@ -46,7 +38,19 @@
             <button type="submit" class="button search">Buscar</button>
         </form>
 
-        <!-- Div para mostrar resultados -->
+        <!-- Tabla de resultados -->
+        <table id="resultTable" class="result-table" style="display: none;">
+            <thead>
+                <tr>
+                    <th>Placa</th>
+                    <th>Hora de Llegada</th>
+                    <th>Modificaciones</th>
+                </tr>
+            </thead>
+            <tbody id="resultTableBody">
+            </tbody>
+        </table>
+
         <div id="result" class="result"></div>
     </div>
 </body>

@@ -1,7 +1,13 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
-    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; 
+    height: 100vh;
+    overflow-y: auto; /
 }
 
 .container {
@@ -12,7 +18,7 @@ body {
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    margin-top: 20px;
+    margin-top: 20px; 
 }
 
 h1, h2 {
@@ -21,10 +27,19 @@ h1, h2 {
 }
 
 .form {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fafafa;
 }
 
-.form label {
+h2 {
+    color: #555;
+    margin-top: 0; 
+}
+
+label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
@@ -53,11 +68,19 @@ h1, h2 {
 }
 
 .button.delete {
-    background-color: #dc3545;
+    background-color: #f44336; 
 }
 
-.button.delete:hover {
-    background-color: #c82333;
+.button.search {
+    background-color: #2196F3; 
+}
+
+.button.update {
+    background-color: #FF9800; 
+}
+
+.button:hover {
+    opacity: 0.8;
 }
 
 .result-table {
@@ -75,3 +98,25 @@ h1, h2 {
 .result-table th {
     background-color: #f2f2f2;
 }
+
+.result-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .result-table th, .result-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .result-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .result-table td button {
+    margin: 0 5px;
+    cursor: pointer;
+  }
+  
